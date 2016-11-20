@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.iKu.WPF", "WeChat.iKu.WPF\WeChat.iKu.WPF.csproj", "{417A7C1B-28C3-4CC1-BE73-A27584B5AC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.iKu.Emoji", "WeChat.iKu.Emoji\WeChat.iKu.Emoji.csproj", "{457DEBDB-9F6F-42BC-8298-C470BE4F1452}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.iKu.HTTP", "WeChat.iKu.HTTP\WeChat.iKu.HTTP.csproj", "{E933433A-52FE-40E3-9C13-AF71F269050D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeChat.iKu.Tools", "WeChat.iKu.Tools\WeChat.iKu.Tools.csproj", "{B86BC948-91DF-452A-9FA3-4F8AA9219958}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{5C6A4E90-1685-4FED-B089-FBCDF5B719B6}"
+	ProjectSection(SolutionItems) = preProject
+		DLL\GalaSoft.MvvmLight.Extras.WPF4.dll = DLL\GalaSoft.MvvmLight.Extras.WPF4.dll
+		DLL\GalaSoft.MvvmLight.WPF4.dll = DLL\GalaSoft.MvvmLight.WPF4.dll
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{417A7C1B-28C3-4CC1-BE73-A27584B5AC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417A7C1B-28C3-4CC1-BE73-A27584B5AC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417A7C1B-28C3-4CC1-BE73-A27584B5AC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417A7C1B-28C3-4CC1-BE73-A27584B5AC22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{457DEBDB-9F6F-42BC-8298-C470BE4F1452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{457DEBDB-9F6F-42BC-8298-C470BE4F1452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{457DEBDB-9F6F-42BC-8298-C470BE4F1452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{457DEBDB-9F6F-42BC-8298-C470BE4F1452}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E933433A-52FE-40E3-9C13-AF71F269050D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E933433A-52FE-40E3-9C13-AF71F269050D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E933433A-52FE-40E3-9C13-AF71F269050D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E933433A-52FE-40E3-9C13-AF71F269050D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
