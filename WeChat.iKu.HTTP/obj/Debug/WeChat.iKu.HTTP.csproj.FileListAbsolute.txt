@@ -16,3 +16,12 @@ E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\Newtonso
 E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\obj\Debug\WeChat.iKu.HTTP.csprojResolveAssemblyReference.cache
 E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\obj\Debug\WeChat.iKu.HTTP.dll
 E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\obj\Debug\WeChat.iKu.HTTP.pdb
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\WeChat.iKu.HTTP.dll
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\WeChat.iKu.HTTP.pdb
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\Newtonsoft.Json.dll
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\WeChat.iKu.Tools.dll
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\WeChat.iKu.Tools.pdb
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\bin\Debug\Newtonsoft.Json.xml
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\obj\Debug\WeChat.iKu.HTTP.csprojResolveAssemblyReference.cache
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\obj\Debug\WeChat.iKu.HTTP.dll
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.HTTP\obj\Debug\WeChat.iKu.HTTP.pdb

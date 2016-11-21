@@ -73,6 +73,82 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--最大化按钮样式-->
+    <Style x:Key="MaximizeStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="grid_content" Background="{TemplateBinding Background}">
+                        <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="Gray" StrokeThickness="1" Data="M0,0 L7,0 L7,7 L0,7Z"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid_content" Property="Background" Value="#FFE5E5E5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--最小化按钮样式-->
+    <Style x:Key="MinimizeStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrush}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="grid_content" Background="{TemplateBinding Background}">
+                        <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="Gray" StrokeThickness="1" Data="M0,0 L7,0"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid_content" Property="Background" Value="#FFE5E5E5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--正常大小按钮样式-->
+    <Style x:Key="NormizeStyle" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="WhiteSmoke"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="grid_content" Background="{TemplateBinding Background}">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="Gray" StrokeThickness="1" Data="M0,0 L7,0 L7,7 L0,7Z"/>
+                            <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="Gray" StrokeThickness="1" Data="M3,-2 L3,-4 L10,-4 L10,3 L8,3"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="grid_content" Property="Background" Value="#FFE5E5E5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!--聊天按钮的样式-->
     <Style x:Key="ChatStyle" TargetType="{x:Type RadioButton}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
@@ -226,5 +302,210 @@
             </Setter.Value>
         </Setter>
     </Style>
-  
+    
+    <LinearGradientBrush x:Key="TextBoxBorder" StartPoint="0,0" MappingMode="Absolute" EndPoint="0,20">
+        <GradientStop Color="#ABADB3" Offset="0.05"/>
+        <GradientStop Color="#E2E3EA" Offset="0.07"/>
+        <GradientStop Color="#E3E9EF" Offset="1"/>
+    </LinearGradientBrush> 
+    <!--圆角聊天内容框-->
+    <Style x:Key="ChatTextBoxStyle" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="3" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="0">
+                        <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="3"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="ListBorder" Color="#FFEAEAEA"/>
+    <Style x:Key="ChatListBoxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Focusable" Value="False"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" FlowDirection="{Binding FlowDir}" Margin="15,5">
+                                    <Image Grid.Column="1" Source="{Binding Image}" Height="35" Width="35" VerticalAlignment="Top"/>
+                                    <Path Grid.Column="2" StrokeThickness="1" Stroke="{Binding TbColor}" Data="M12,13 L5,18 L12,23Z" Fill="{Binding TbColor}" Margin="0" SnapsToDevicePixels="True"/>
+                                    <TextBox Grid.Column="3" MaxWidth="355" TextWrapping="Wrap" FontSize="15" BorderBrush="{Binding TbColor}" Background="{Binding TbColor}" IsReadOnly="True" BorderThickness="0" Style="{StaticResource ChatTextBoxStyle}" FlowDirection="LeftToRight" Text="{Binding Message}"/> 
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--发送按钮样式-->
+    <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+    <Style x:Key="SendButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="bor" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock x:Name="tb" Text="{TemplateBinding Content}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Foreground" TargetName="tb" Value="White"/>
+                            <Setter Property="Background" TargetName="bor" Value="#FF3DCE3D"/>
+                            <Setter Property="BorderBrush" TargetName="bor" Value="#FF3DCE3D"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--ToolTip-->
+    <Style x:Key="ToolTipTextBoxStyle" BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border>
+                        <Grid>
+                            <Path StrokeThickness="1" Stroke="Gray" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,0">
+                                            <LineSegment Point="50,0"/>
+                                            <ArcSegment Point="52,2" Size="2,2" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="52,22"/>
+                                            <ArcSegment Point="50,24" Size="2,2" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="45,24"/>
+                                            <LineSegment Point="43,32"/>
+                                            <LineSegment Point="41,24"/>
+                                            <LineSegment Point="0,24"/>
+                                            <ArcSegment Point="-2,22" Size="2,2" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="-2,2"/>
+                                            <ArcSegment Point="0,0" Size="2,2" SweepDirection="Clockwise"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <TextBlock Text="{TemplateBinding Text}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="0,5"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--用户信息页面的按钮样式-->
+    <Style x:Key="FriSendButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        <Setter Property="Background" Value="#FF3DCE3D"/>
+        <Setter Property="BorderBrush" Value="#FF3DCE3D"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}"  SnapsToDevicePixels="true">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="#ADADAD"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EmojiStyle" TargetType="{x:Type RadioButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Grid Background="White">
+                        <Ellipse x:Name="el1" Width="30" Height="30" Stretch="Fill" StrokeThickness="1" Stroke="Gray"/>
+                        <Ellipse x:Name="el2" Stretch="Fill" Fill="Gray" Margin="0,0,10,10" Stroke="Gray" StrokeThickness="1" HorizontalAlignment="Center" Height="5" Width="5"/>
+                        <Ellipse x:Name="el3" Stretch="Fill" Fill="Gray" Margin="10,0,0,10" Stroke="Gray" StrokeThickness="1" HorizontalAlignment="Center" Height="5" Width="5"/>
+                        <Path x:Name="pa" Data="M 5 18 L 25 18 A 7,5 1 0 1 5,18Z" Fill="Gray" Stroke="Gray" StrokeThickness="1"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter Property="Stroke" Value="Green" TargetName="el1"/>
+                            <Setter Property="Stroke" Value="Green" TargetName="el2"/>
+                            <Setter Property="Stroke" Value="Green" TargetName="el3"/>
+                            <Setter Property="Fill" Value="Green" TargetName="el2"/>
+                            <Setter Property="Fill" Value="Green" TargetName="el3"/>
+                            <Setter Property="Fill" Value="Green" TargetName="pa"/>
+                            <Setter Property="Stroke" Value="Green" TargetName="pa"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Stroke" Value="Green" TargetName="el1"/>
+                            <Setter Property="Stroke" Value="Green" TargetName="el2"/>
+                            <Setter Property="Stroke" Value="Green" TargetName="el3"/>
+                            <Setter Property="Fill" Value="Green" TargetName="el2"/>
+                            <Setter Property="Fill" Value="Green" TargetName="el3"/>
+                            <Setter Property="Fill" Value="Green" TargetName="pa"/>
+                            <Setter Property="Stroke" Value="Green" TargetName="pa"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

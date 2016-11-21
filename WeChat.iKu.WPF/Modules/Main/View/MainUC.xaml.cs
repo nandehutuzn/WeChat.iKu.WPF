@@ -31,6 +31,36 @@ namespace WeChat.iKu.WPF.Modules.Main.View
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            this.DragMove();//左键拖动
+        }
+
+        private void btn_min_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_normal_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_max_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void NotificationAreaIcon_MouseClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Click(object sender, EventArgs e)
+        {
 
         }
     }

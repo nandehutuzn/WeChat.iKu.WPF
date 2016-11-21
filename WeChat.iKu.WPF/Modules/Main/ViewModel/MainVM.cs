@@ -305,7 +305,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
 
                 IOrderedEnumerable<object> list_all = contact_all.OrderBy(p =>
                     (p as WeChatUser).StartChar).ThenBy(p =>
-                        (p as WeChatUser).ShowPinYin.Substring(0, 1));
+                        (p as WeChatUser).NickName);
 
                 WeChatUser wcu;
                 string start_char;

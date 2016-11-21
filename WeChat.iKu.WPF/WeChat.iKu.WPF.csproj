@@ -80,6 +80,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\NotificationAreaIcon.cs" />
+    <Compile Include="Controls\ScrollingListBox.cs" />
     <Compile Include="Conver\BoolConvertVisibility.cs" />
     <Compile Include="Conver\CountConvertVisibility.cs" />
     <Compile Include="Conver\EmptyConvertVisibility.cs" />

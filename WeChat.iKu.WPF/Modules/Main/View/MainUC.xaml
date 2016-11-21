@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WeChat.iKu.WPF.Modules.Main.View"
         xmlns:ComManage="clr-namespace:WeChat.iKu.WPF.Modules.ComMange"
-        xmlns:forms="clr-namespace:System.Resources;assembly=System.Windows.Forms"
+        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:controls="clr-namespace:WeChat.iKu.WPF.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mv="http://www.galasoft.ch/mvvmlight"
@@ -41,7 +41,7 @@
 			<!--聊天列表-->
             <ListBox Grid.Row="1" Visibility="{Binding ElementName=rb_chat,Path=IsChecked, Converter={StaticResource boolToVisibility}}" ItemsSource="{Binding Contact_latest}"
                      SelectedItem="{Binding Select_Contact_latest}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                     ItemContainerStyle="{Binding ListBoxItemStyle}" Background="#FFEAEAEA" BorderThickness="0" Margin="0">
+                     ItemContainerStyle="{StaticResource ListBoxItemChatStyle}" Background="#FFEAEAEA" BorderThickness="0" Margin="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <mv:EventToCommand Command="{Binding ChatCommand}"/>
@@ -59,12 +59,78 @@
                 </i:Interaction.Triggers>
             </ListBox>
         </Grid>
-        <Grid Grid.Column="2" Background="Blue">
+        <Grid Grid.Column="2" Background="WhiteSmoke">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="WhiteSmoke" MouseDown="Grid_MouseDown" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding UserName}" Visibility="{Binding ElementName=rb_chat,Path=IsChecked, Converter={StaticResource boolToVisibility}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="15" Grid.ColumnSpan="2"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <Button x:Name="btn_min" Height="35" Width="28" Style="{StaticResource MinimizeStyle}" Click="btn_min_Click"/>
+                    <Button x:Name="btn_normal" Height="35" Width="28" Visibility="Collapsed" Style="{StaticResource NormizeStyle}" Click="btn_normal_Click"/>
+                    <Button x:Name="btn_max" Height="35" Width="28" Style="{StaticResource MaximizeStyle}" Click="btn_max_Click"/>
+                    <Button x:Name="btn_close" Height="35" Width="35" Style="{StaticResource CloseStyle}" Click="btn_close_Click"/>
+                    <controls:NotificationAreaIcon Text="WPF微信" Icon="/Image/Wechat.ico" MouseClick="NotificationAreaIcon_MouseClick">
+                        <controls:NotificationAreaIcon.MenuItems>
+                            <forms:MenuItem Text="退出" Click="MenuItem_Click" DefaultItem="True"/>
+                        </controls:NotificationAreaIcon.MenuItems>
+                    </controls:NotificationAreaIcon>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Visibility="{Binding ElementName=rb_chat, Path=IsChecked, Converter={StaticResource boolToVisibility}}">
+                <controls:ScrollingListBox ItemsSource="{Binding ChatList}" Background="WhiteSmoke" Style="{StaticResource ChatListBoxStyle}"/>
+            </Grid>
+            <Grid Grid.Row="2" Background="#FFF9F9F9" Visibility="{Binding ElementName=rb_chat, Path=IsChecked,Converter={StaticResource boolToVisibility}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0">
+                    <RadioButton x:Name="RB_Emoji" Grid.Row="0" Command="{Binding EmojiCommand}" CommandParameter="{Binding ElementName=EmojiTabControlUC}" Style="{StaticResource EmojiStyle}"/>
+                </StackPanel>
+                <TextBox Grid.Row="1" Background="#FFF9F9F9" Focusable="True" Margin="10,0" BorderThickness="0" Text="{Binding SendMessage}" TextWrapping="Wrap"/>
+                <TextBox Grid.Row="1" Visibility="{Binding Tootip_Visibility}" Text="不能发送空白信息" Background="White" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15,0" Style="{StaticResource ToolTipTextBoxStyle}" FontSize="13" Height="35" Width="110"/>
+                <Button Grid.Row="2" Command="{Binding SendCommand}" Content="发送(S)" Width="68" Height="26" FontSize="13" BorderBrush="Gray" Background="WhiteSmoke" Foreground="Gray" HorizontalAlignment="Right" Margin="0,0,15,0" Style="{StaticResource SendButtonStyle}"/>
+            </Grid>
+            <Grid Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=rb_friend,Path=IsChecked,Converter={StaticResource boolToVisibility}}" Margin="0,50,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding FriendInfo.Icon}" Grid.Row="0" Height="124" Width="124" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding FriendInfo.NickName}" FontSize="30" Foreground="Black" FontWeight="Bold"/>
+                    <Image Visibility="{Binding FriendInfo.Sex,Converter={StaticResource parameterToVisibility},ConverterParameter=2}" Source="/Image/female.png"/>
+                    <Image Visibility="{Binding FriendInfo.Sex,Converter={StaticResource parameterToVisibility},ConverterParameter=1}" Source="/Image/male.png"/>
+                </StackPanel>
+                <TextBlock Text="{Binding FriendInfo.Signature}" Foreground="#FF919191" Grid.Row="2" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding FriendInfo.RemarkName,Converter={StaticResource epmtyToVisibility}}" Margin="10" Grid.Row="3" HorizontalAlignment="Center">
+                    <TextBlock Text="备  注" Margin="0,0,10,0" FontSize="15"/>
+                    <TextBlock Text="{Binding FriendInfo.RemarkName}" FontSize="15"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding FriendInfo.Province,Converter={StaticResource epmtyToVisibility}}" Margin="10" Grid.Row="4" HorizontalAlignment="Center">
+                    <TextBlock Text="地区" Margin="0,0,10,0" FontSize="15"/>
+                    <TextBlock Text="{Binding FriendInfo.Province}" Margin="0,0,2,0" FontSize="15"/>
+                    <TextBlock Text="{Binding FriendInfo.City}" FontSize="15"/>
+                </StackPanel>
+                <Button Content="发消息" Width="166" Height="37" Grid.Row="5" Command="{Binding FriendSendComamnd}" Margin="0,50,0,0" Style="{StaticResource FriSendButtonStyle}"/>
+                <Grid Grid.Row="0" Grid.RowSpan="7" Background="WhiteSmoke" Visibility="{Binding FriendInfo,Converter={StaticResource nullToVisibility}}"/>
+            </Grid>
         </Grid>
+        <Popup PopupAnimation="Fade" PlacementTarget="{Binding ElementName=RB_Emoji}" Placement="Top" AllowsTransparency="True" StaysOpen="False" IsOpen="{Binding Emoji_Popup}">
+            <Emoji:EmojiTabControlUC x:Name="EmojiTabControlUC" Width="455" Height="250"/>
+        </Popup>
     </Grid>
 </Window>
