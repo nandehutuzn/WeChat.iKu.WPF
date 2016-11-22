@@ -17,6 +17,9 @@ namespace WeChat.iKu.WPF.Controls
     [DefaultEvent("MouseDoubleClick")]
     public class NotificationAreaIcon : FrameworkElement
     {
+        /// <summary>
+        /// 系统托盘
+        /// </summary>
         NotifyIcon notifyIcon;
 
         public static readonly DependencyProperty IconProperty =

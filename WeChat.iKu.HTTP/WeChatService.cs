@@ -54,7 +54,7 @@ namespace WeChat.iKu.HTTP
         /// <returns></returns>
         public ImageSource GetIcon(string username, string url = StaticUrl.Url_GetIcon)
         {
-            byte[] bytes = BaseService.Request(url + username, MethodEnum.Get);
+            byte[] bytes = BaseService.Request(url + username, MethodEnum.GET);
             return ImageHelper.MemoryToImageSourceOther(new MemoryStream(bytes));
         }
 
@@ -64,7 +64,7 @@ namespace WeChat.iKu.HTTP
         /// <returns></returns>
         public JObject GetContact()
         {
-            byte[] bytes = BaseService.Request(StaticUrl.Url_GetContact, MethodEnum.Get);
+            byte[] bytes = BaseService.Request(StaticUrl.Url_GetContact, MethodEnum.GET);
             string contact_str = Encoding.UTF8.GetString(bytes);
             return JsonConvert.DeserializeObject(contact_str) as JObject;
         }
@@ -82,14 +82,20 @@ namespace WeChat.iKu.HTTP
 
             Cookie sid = BaseService.GetCookie("wxsid");
             Cookie uin = BaseService.GetCookie("wxuin");
+
             if (sid != null && uin != null)
             {
                 StaticUrl.Url_SyncCheck_ext = string.Format(StaticUrl.Url_SyncCheck_ext, sid.Value, uin.Value, sync_key, TimeHelper.GetTimeStamp(), LoginService.SKey.Replace("@", "%40"), "e" + NumHelper.RandomNum(15));
-                byte[] bytes = BaseService.Request(StaticUrl.Url_SyncCheck + StaticUrl.Url_SyncCheck_ext + DateTime.Now.Ticks, MethodEnum.Get);
+                byte[] bytes = BaseService.Request(StaticUrl.Url_SyncCheck + StaticUrl.Url_SyncCheck_ext + DateTime.Now.Ticks, MethodEnum.GET);
                 if (bytes != null)
+                {
                     return Encoding.UTF8.GetString(bytes);
+                }
+                else
+                    return null;
             }
-            return null;
+            else
+                return null;
         }
 
         /// <summary>
@@ -104,21 +110,25 @@ namespace WeChat.iKu.HTTP
             if (sid != null && uin != null)
             {
                 string sync_keys = "";
-                foreach(KeyValuePair<string, string> p in _syncKey)
+                foreach (KeyValuePair<string, string> p in _syncKey)
+                {
                     sync_keys += "{\"Key\":" + p.Key + ",\"Val\":" + p.Value + "},";
+                }
                 sync_keys = sync_keys.TrimEnd(',');
                 sync_json = string.Format(sync_json, uin.Value, sid.Value, _syncKey.Count, sync_keys, TimeHelper.GetTimeStamp(), LoginService.SKey);
 
-                StaticUrl.Url_SyncCheck_ext = string.Format(StaticUrl.Url_Sync_ext, sid.Value, LoginService.SKey, LoginService.Pass_Ticket);
+                StaticUrl.Url_Sync_ext = string.Format(StaticUrl.Url_Sync_ext, sid.Value, LoginService.SKey, LoginService.Pass_Ticket);
                 byte[] bytes = BaseService.Request(StaticUrl.Url_Sync + StaticUrl.Url_Sync_ext, MethodEnum.POST, sync_json);
                 string sync_str = Encoding.UTF8.GetString(bytes);
 
                 JObject sync_result = JsonConvert.DeserializeObject(sync_str) as JObject;
-                if (sync_result != null && sync_result["SyncKey"]["Count"].ToString() != "0")
+                if (sync_result["SyncKey"]["Count"].ToString() != "0")
                 {
                     _syncKey.Clear();
                     foreach (JObject key in sync_result["SyncKey"]["List"])
+                    {
                         _syncKey.Add(key["Key"].ToString(), key["Val"].ToString());
+                    }
                 }
                 return sync_result;
             }

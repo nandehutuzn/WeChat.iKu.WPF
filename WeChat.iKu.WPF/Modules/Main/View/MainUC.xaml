@@ -93,7 +93,7 @@
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0">
-                    <RadioButton x:Name="RB_Emoji" Grid.Row="0" Command="{Binding EmojiCommand}" CommandParameter="{Binding ElementName=EmojiTabControlUC}" Style="{StaticResource EmojiStyle}"/>
+                    <Button x:Name="RB_Emoji" Grid.Row="0" Command="{Binding EmojiCommand}" CommandParameter="{Binding ElementName=EmojiTabControlUC}" Style="{StaticResource EmojiStyle}"/>
                 </StackPanel>
                 <TextBox Grid.Row="1" Background="#FFF9F9F9" Focusable="True" Margin="10,0" BorderThickness="0" Text="{Binding SendMessage}" TextWrapping="Wrap"/>
                 <TextBox Grid.Row="1" Visibility="{Binding Tootip_Visibility}" Text="不能发送空白信息" Background="White" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15,0" Style="{StaticResource ToolTipTextBoxStyle}" FontSize="13" Height="35" Width="110"/>

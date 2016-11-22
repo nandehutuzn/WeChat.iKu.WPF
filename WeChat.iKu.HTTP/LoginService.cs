@@ -24,11 +24,11 @@ namespace WeChat.iKu.HTTP
         public ImageSource GetQRCode()
         {
             //请求UUID
-            byte[] bytes = BaseService.Request(StaticUrl.Url_GetUUID + TimeHelper.GetTimeStamp(), MethodEnum.Get);
+            byte[] bytes = BaseService.Request(StaticUrl.Url_GetUUID + TimeHelper.GetTimeStamp(), MethodEnum.GET);
             //得到session
             session_id = Encoding.UTF8.GetString(bytes).Split(new string[] { "\"" }, StringSplitOptions.None)[1];
             //请求二维码
-            bytes = BaseService.Request(StaticUrl.Url_GetQrCode + session_id, MethodEnum.Get);
+            bytes = BaseService.Request(StaticUrl.Url_GetQrCode + session_id, MethodEnum.GET);
             return ImageHelper.MemoryToImageSource(new MemoryStream(bytes));
         }
 
@@ -42,7 +42,7 @@ namespace WeChat.iKu.HTTP
                 return null;
             //查看是否扫码登录了
             byte[] bytes = BaseService.Request(StaticUrl.Url_WaitLogin + session_id + "&tip=0&r=" + TimeHelper.GetTimeStamp_TakeBack() + "&_=" + TimeHelper.GetTimeStamp(),
-                 MethodEnum.Get);
+                 MethodEnum.GET);
             string login_result = Encoding.UTF8.GetString(bytes);
 
             if (login_result.Contains("=" + StaticCode.LoginCode.code_LoginSuccess))
@@ -72,7 +72,7 @@ namespace WeChat.iKu.HTTP
         /// <param name="login_redirect"></param>
         public void GetSidUid(string login_redirect)
         {
-            byte[] bytes = BaseService.Request(login_redirect + StaticUrl.Url_redirect_ext, MethodEnum.Get);
+            byte[] bytes = BaseService.Request(login_redirect + StaticUrl.Url_redirect_ext, MethodEnum.GET);
             string pass_ticket = Encoding.UTF8.GetString(bytes);
             Pass_Ticket = pass_ticket.Split(new string[] { "pass_ticket" }, StringSplitOptions.None)[1].TrimStart('>').TrimEnd('<', '/');
             SKey = pass_ticket.Split(new string[] { "skey" }, StringSplitOptions.None)[1].TrimStart('>').TrimEnd('<', '/');

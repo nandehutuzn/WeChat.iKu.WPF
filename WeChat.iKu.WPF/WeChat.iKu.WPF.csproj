@@ -199,7 +199,9 @@
     <Resource Include="Image\Wechat.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\wait.png" />
+    <Resource Include="Image\wait.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

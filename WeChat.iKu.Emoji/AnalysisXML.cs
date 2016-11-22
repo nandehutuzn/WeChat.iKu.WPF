@@ -29,30 +29,33 @@ namespace WeChat.iKu.Emoji
             XmlDocument xmlDoc = new XmlDocument();
             Assembly assembly = Assembly.GetExecutingAssembly();
             Stream stream = assembly.GetManifestResourceStream("WeChat.iKu.Emoji.Emoji.xml");//文件需为嵌入的资源
-            xmlDoc.Load(stream);
-            XmlNode root = xmlDoc.SelectSingleNode("array");
-            XmlNodeList nodeList = root.ChildNodes;
-            //循环列表，获得相应的内容
-            foreach (XmlNode xn in nodeList)
+            if (stream != null)
             {
-                XmlElement xe = (XmlElement)xn;
-                XmlNodeList subList = xe.ChildNodes;
-                emojiEntity entity = new emojiEntity();
-                foreach (XmlNode xmlNode in subList)
+                xmlDoc.Load(stream);
+                XmlNode root = xmlDoc.SelectSingleNode("array");
+                XmlNodeList nodeList = root.ChildNodes;
+                //循环列表，获得相应的内容
+                foreach (XmlNode xn in nodeList)
                 {
-                    if (xmlNode.Name == "key")
-                        entity.Key = xmlNode.InnerText;
-                    if (xmlNode.Name == "array")
+                    XmlElement xe = (XmlElement)xn;
+                    XmlNodeList subList = xe.ChildNodes;
+                    emojiEntity entity = new emojiEntity();
+                    foreach (XmlNode xmlNode in subList)
                     {
-                        XmlElement lastXe = (XmlElement)xmlNode;
-                        foreach (XmlNode lastNode in lastXe)
+                        if (xmlNode.Name == "key")
+                            entity.Key = xmlNode.InnerText;
+                        if (xmlNode.Name == "array")
                         {
-                            if (lastNode.Name == "e")
-                                entity.EmojiCode.Add(lastNode.InnerText, GetEmoji(lastNode.InnerText));
+                            XmlElement lastXe = (XmlElement)xmlNode;
+                            foreach (XmlNode lastNode in lastXe)
+                            {
+                                if (lastNode.Name == "e")
+                                    entity.EmojiCode.Add(lastNode.InnerText, GetEmoji(lastNode.InnerText));
+                            }
                         }
                     }
+                    EmojiList.Add(entity);
                 }
-                EmojiList.Add(entity);
             }
         }
 

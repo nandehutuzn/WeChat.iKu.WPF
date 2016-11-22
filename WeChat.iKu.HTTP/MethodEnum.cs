@@ -8,7 +8,7 @@ namespace WeChat.iKu.HTTP
 {
     public enum MethodEnum
     { 
-        Get,
+        GET,
         POST,
     }
 }
