@@ -501,6 +501,7 @@
                             <Setter Property="Fill" Value="Green" TargetName="el3"/>
                             <Setter Property="Fill" Value="Green" TargetName="pa"/>
                             <Setter Property="Stroke" Value="Green" TargetName="pa"/>
+                            <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -13,6 +13,5 @@ E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\obj\Debug\WeChat.i
 E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\obj\Debug\WeChat.iKu.Tools.pdb
 E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\bin\Debug\WeChat.iKu.Tools.dll
 E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\bin\Debug\WeChat.iKu.Tools.pdb
-E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\obj\Debug\WeChat.iKu.Tools.csprojResolveAssemblyReference.cache
 E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\obj\Debug\WeChat.iKu.Tools.dll
 E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.Tools\obj\Debug\WeChat.iKu.Tools.pdb

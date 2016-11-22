@@ -322,8 +322,8 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                 }
             }
             catch (Exception ex)
-            { 
-            
+            {
+                string message = ex.Message;
             }
         }
 

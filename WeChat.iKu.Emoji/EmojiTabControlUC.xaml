@@ -26,7 +26,7 @@
         <Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="Gray"/>
             <Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>

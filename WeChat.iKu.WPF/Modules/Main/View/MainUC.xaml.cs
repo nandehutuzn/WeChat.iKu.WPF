@@ -138,5 +138,10 @@ namespace WeChat.iKu.WPF.Modules.Main.View
             ShowInTaskbar = true;
             Show();
         }
+
+        private void RB_Emoji_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("测试");
+        }
     }
 }

@@ -159,3 +159,4 @@ E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.WPF\obj\Debug
 E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.WPF\obj\Debug\WeChat.iKu.WPF.Properties.Resources.resources
 E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.WPF\obj\Debug\WeChat.iKu.WPF.csproj.GenerateResource.Cache
 E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.WPF\bin\Debug\Emoji.xml
+E:\GitHub\20161117_WeChat\WeChat.iKu.WPF\WeChat.iKu.WPF\WeChat.iKu.WPF\bin\Debug\Emoji.xml
