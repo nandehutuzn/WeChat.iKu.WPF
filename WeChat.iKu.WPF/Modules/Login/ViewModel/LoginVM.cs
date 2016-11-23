@@ -70,7 +70,7 @@ namespace WeChat.iKu.WPF.Modules.Login.ViewModel
                 { //超时
                     Messenger.Default.Send<object>(null, "ShowQRCodeUC");//返回二维码页面
                 }
-                Thread.Sleep(20);
+                //Thread.Sleep(20);
             }
         }
 

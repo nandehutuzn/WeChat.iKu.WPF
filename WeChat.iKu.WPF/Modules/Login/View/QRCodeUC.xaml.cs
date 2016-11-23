@@ -26,19 +26,5 @@ namespace WeChat.iKu.WPF.Modules.Login.View
         {
             InitializeComponent();
         }
-
-        private ImageSource InitImageSource()
-        {
-            string imageFile = SIO.Path.Combine(Environment.CurrentDirectory, "wait.png");
-            if(SIO.File.Exists(imageFile))
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(imageFile);
-                bi.EndInit();
-                return bi;
-            }
-            return null;
-        }
     }
 }

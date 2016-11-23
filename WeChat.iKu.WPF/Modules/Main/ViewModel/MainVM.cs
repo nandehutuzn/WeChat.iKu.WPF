@@ -68,6 +68,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                         _friendUser.MsgRecved += _friendUser_MsgRecved;
                         _friendUser.MsgSent += _friendUser_MsgSent;
                         IEnumerable<KeyValuePair<Guid, WeChatMsg>> dic = _friendUser.RecvedMsg.Concat(_friendUser.SentMsg);
+                        dic = dic.OrderBy(o => o.Value.Time);
                         foreach (KeyValuePair<Guid, WeChatMsg> p in dic)
                         {
                             if (p.Value.From == _friendUser.UserName)
@@ -281,7 +282,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                     }
                 }
                 //通讯录
-                JObject contact_result = wcs.GetContact();
+                JObject contact_result = null;//wcs.GetContact();
                 if (contact_result != null)
                 {//完整好友名单
                     foreach (JObject contact in contact_result["MemberList"])
@@ -408,7 +409,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                     Application.Current.Dispatcher.BeginInvoke((Action)delegate()
                                                     {
                                                         WeChatUser user;
-                                                        bool exist_latest_contact = false;
+                                                        bool exist_latest_contact = false;//该好友是否在最近联系人列表里面
                                                         foreach (object u in Contact_latest)
                                                         {
                                                             user = u as WeChatUser;
@@ -416,8 +417,10 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                             {
                                                                 if (user.UserName == msg.From && msg.To == _me.UserName)
                                                                 { //接收别人消息
-                                                                    Contact_latest.Remove(user);
+                                                                    _contact_latest.Remove(user);
                                                                     user.UnReadCount = user.GetUnreadMsg() == null ? 0 : user.GetUnreadMsg().Count;
+                                                                    if (_friendUser == null || user.UserName != _friendUser.UserName)
+                                                                        user.UnReadCount++;
                                                                     List<WeChatMsg> unReadList = user.GetUnreadMsg();
                                                                     WeChatMsg latestMsg = user.GetLatestMsg();
                                                                     if (unReadList != null)
@@ -436,15 +439,15 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                                         }
                                                                     }
 
-                                                                    Contact_latest.Insert(0, user);
+                                                                    _contact_latest.Insert(0, user);
                                                                     exist_latest_contact = true;
                                                                     user.ReceivedMsg(msg);
                                                                     break;
                                                                 }
                                                                 else if (user.UserName == msg.To && msg.From == _me.UserName)
                                                                 { //同步自己在其他设备上发送的消息
-                                                                    Contact_latest.Remove(user);
-                                                                    Contact_latest.Insert(0, user);
+                                                                    _contact_latest.Remove(user);
+                                                                    _contact_latest.Insert(0, user);
                                                                     exist_latest_contact = true;
                                                                     user.SendMsg(msg, true);
                                                                     break;
@@ -458,24 +461,24 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                                 WeChatUser friend = o as WeChatUser;
                                                                 if (friend != null && friend.UserName == msg.From && msg.To == _me.UserName)
                                                                 {
-                                                                    Contact_latest.Insert(0, friend);
+                                                                    _contact_latest.Insert(0, friend);
                                                                     friend.ReceivedMsg(msg);
                                                                     break;
                                                                 }
                                                                 if (friend != null && friend.UserName == msg.To && msg.From == _me.UserName)
                                                                 {
-                                                                    Contact_latest.Insert(0, friend);
+                                                                    _contact_latest.Insert(0, friend);
                                                                     friend.SendMsg(msg, true);
                                                                     break;
                                                                 }
                                                             }
                                                         }
+                                                        
                                                     });
                                                 }
                                             }
                                         }
                                     }
-                                    Thread.Sleep(20);
                                 }
                             });
                     }));

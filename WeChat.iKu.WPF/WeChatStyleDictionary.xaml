@@ -20,7 +20,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Ellipse Fill="Red" Width="17" Height="17"/>
+                        <Ellipse Fill="Red" Width="15" Height="15" Opacity="0.8"/>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
@@ -229,7 +229,7 @@
                             <Grid>
                                 <Image Source="{Binding Icon}" Width="40" Height="40" Margin="10"/>
                                 <Button Foreground="White" Visibility="{Binding UnReadCount, Converter={StaticResource countToVisibility}}" 
-                                        Content="{Binding UnreadCount}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0.5" Style="{Binding CirButtonStyle}"/>
+                                        Content="{Binding UnReadCount}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0.5" Style="{StaticResource CirButtonStyle}"/>
                             </Grid>
                             <Grid Width="176">
                                 <Grid.RowDefinitions>
