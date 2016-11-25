@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{5C6A4E90-168
 		DLL\GalaSoft.MvvmLight.WPF4.dll = DLL\GalaSoft.MvvmLight.WPF4.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZN.Dotnet.Tools", "ZN.Dotnet.Tools\ZN.Dotnet.Tools.csproj", "{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B86BC948-91DF-452A-9FA3-4F8AA9219958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

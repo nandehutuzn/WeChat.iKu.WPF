@@ -11,6 +11,7 @@
     <conver:ParameterConvertVisibility x:Key="parameterToVisibility"/>
     <conver:EmptyConvertVisibility x:Key="epmtyToVisibility"/>
     <conver:NullConvertVisibility x:Key="nullToVisibility"/>
+    <conver:CountConvertColor x:Key="countToColor"/>
     
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
     
@@ -238,7 +239,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="{Binding ShowName}" FontSize="15" HorizontalAlignment="Left" Margin="5,10,0,0"/>
                                 <TextBlock Grid.Row="0" Text="{Binding LastTime}" FontSize="15" HorizontalAlignment="Right" Margin="0,10,5,0"/>
-                                <TextBlock Grid.Row="1" Text="{Binding LastMsg}" FontSize="10" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                                <TextBlock Grid.Row="1" Text="{Binding LastMsg}" Foreground="{Binding UnReadCount, Converter={StaticResource countToColor}}" FontSize="12" HorizontalAlignment="Left" Margin="5,0,0,0"/>
                             </Grid>
                         </StackPanel>
                     </Border>
@@ -504,6 +505,66 @@
                             <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--输入框上面Label动画-->
+    <Style x:Key="AnimaLabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Canvas>
+                        <Ellipse Canvas.Top="5" Height="20" Name="ellipse1" Stroke="Black" Width="20">
+                            <Ellipse.Fill>
+                                <SolidColorBrush x:Name="e1_brush" Color="AliceBlue"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse Canvas.Top="5" Canvas.Left="130" Height="20" Name="ellipse2" Stroke="Black" Width="20">
+                            <Ellipse.Fill>
+                                <SolidColorBrush x:Name="e2_brush" Color="AliceBlue"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse Canvas.Top="5" Height="20" Canvas.Left="260" Name="ellipse3" Stroke="Black" Width="20">
+                            <Ellipse.Fill>
+                                <SolidColorBrush x:Name="e3_brush" Color="AliceBlue"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse Canvas.Top="5" Canvas.Left="390" Height="20" Name="ellipse4" Stroke="Black" Width="20">
+                            <Ellipse.Fill>
+                                <SolidColorBrush x:Name="e4_brush" Color="AliceBlue"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Canvas.Triggers>
+                            <EventTrigger RoutedEvent="Canvas.Loaded">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse1" Storyboard.TargetProperty="(Canvas.Left)"
+                                                             From="0" To="130" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <ColorAnimation Storyboard.TargetName="e1_brush" Storyboard.TargetProperty="Color"
+                                                            From="Red" To="Blue" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse2" Storyboard.TargetProperty="(Canvas.Left)"
+                                                             From="130" To="260" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <ColorAnimation Storyboard.TargetName="e2_brush" Storyboard.TargetProperty="Color"
+                                                            From="Ivory" To="LightPink" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse3" Storyboard.TargetProperty="(Canvas.Left)"
+                                                             From="260" To="390" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <ColorAnimation Storyboard.TargetName="e3_brush" Storyboard.TargetProperty="Color"
+                                                            From="GhostWhite" To="Firebrick" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <DoubleAnimation Storyboard.TargetName="ellipse4" Storyboard.TargetProperty="(Canvas.Left)"
+                                                             From="390" To="530" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                            <ColorAnimation Storyboard.TargetName="e4_brush" Storyboard.TargetProperty="Color"
+                                                            From="Khaki" To="PaleGreen" Duration="0:0:5" AutoReverse="True" RepeatBehavior="Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Canvas.Triggers>
+                    </Canvas>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

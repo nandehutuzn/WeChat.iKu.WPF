@@ -16,6 +16,7 @@ using WeChat.iKu.Tools.Heplers;
 using System.Windows.Threading;
 using WeChat.iKu.Emoji;
 using WeChat.iKu.WPF.Modules.Main.View;
+using ZN.Dotnet.Tools;
 
 namespace WeChat.iKu.WPF.Modules.Main.ViewModel
 {
@@ -40,6 +41,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
             timer.Elapsed += timer_Elapsed;
             //Task.Run(() => Init());
             Init();
+            Logger.Test();
         }
 
         private WeChatUser _me;
@@ -442,8 +444,9 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                                             user.UnReadCount = 0;
                                                                             user.ReceivedMsg(msg);
                                                                         }
-                                                                        string lastMsg = "[" + user.ShowName + "]" + user.RecvedMsg.Values.Last().Msg;
-                                                                        user.LastMsg = lastMsg.Length <= 15 ? lastMsg : lastMsg.Substring(0, 15) + "...";
+                                                                        string remarkName = user.RemarkName.Length > 0 ? user.RemarkName : user.NickName;
+                                                                        string lastMsg = "[" + remarkName + "]" + user.RecvedMsg.Values.Last().Msg;
+                                                                        user.LastMsg = GetSubLastMsg(lastMsg, 13);
                                                                         user.LastTime = user.RecvedMsg.Values.Last().Time.ToShortTimeString();   
                                                                         _contact_latest.Insert(0, user);
                                                                         exist_latest_contact = true;
@@ -494,7 +497,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
 
                                                                         exist_latest_contact = true;
                                                                         user.SendMsg(msg, true);
-                                                                        user.LastMsg = user.SentMsg.Values.Last().Msg;
+                                                                        user.LastMsg = GetSubLastMsg(user.SentMsg.Values.Last().Msg, 13);
                                                                         user.LastTime = user.SentMsg.Values.Last().Time.ToShortTimeString();
                                                                         break;
                                                                     }
@@ -510,7 +513,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                                         _contact_latest.Insert(0, friend);
 
                                                                         friend.ReceivedMsg(msg);
-                                                                        friend.LastMsg = friend.RecvedMsg.Values.Last().Msg;
+                                                                        friend.LastMsg = GetSubLastMsg(friend.RecvedMsg.Values.Last().Msg, 13);
                                                                         friend.LastTime = friend.RecvedMsg.Values.Last().Time.ToShortTimeString();
                                                                         break;
                                                                     }
@@ -519,7 +522,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                                                         _contact_latest.Insert(0, friend);
 
                                                                         friend.SendMsg(msg, true);
-                                                                        friend.LastMsg = friend.SentMsg.Values.Last().Msg;
+                                                                        friend.LastMsg = GetSubLastMsg(friend.SentMsg.Values.Last().Msg ,13);
                                                                         friend.LastTime = friend.SentMsg.Values.Last().Time.ToShortTimeString();
                                                                         break;
                                                                     }
@@ -562,6 +565,8 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
             }
         }
 
+     
+
         private RelayCommand _friendCommand;
         /// <summary>
         /// 通讯录选中事件
@@ -586,6 +591,8 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                     {
                         Contact_latest.Remove(Select_Contact_all);
                         Contact_latest.Insert(0, Select_Contact_all);
+                        IsChecked = true;  //跳转到最近联系人列表
+                        Select_Contact_latest = Select_Contact_all;
                     }));
             }
         }
@@ -598,7 +605,13 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
             get {
                 return _sendCommand ?? (_sendCommand = new RelayCommand(() =>
                     {
-                        if (!string.IsNullOrEmpty(SendMessage))
+                        if( _friendUser == null)
+                        {
+                            Tootip_Visibility = Visibility.Visible;
+                            TooTip_Text = "请选中聊天对象";
+                            timer.Start();
+                        }
+                        else if (!string.IsNullOrEmpty(SendMessage))
                         {
                             WeChatMsg msg = new WeChatMsg();
                             msg.From = _me.UserName;
@@ -607,7 +620,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                             msg.Type = 1;
                             msg.Msg = SendMessage;
                             msg.Time = DateTime.Now;
-                            _friendUser.LastMsg = SendMessage.Length <= 15 ? SendMessage : SendMessage.Substring(0, 15) + "...";
+                            _friendUser.LastMsg = GetSubLastMsg(SendMessage, 13);
                             _friendUser.LastTime = msg.Time.ToShortTimeString();
                             _friendUser.SendMsg(msg, false);
                             SendMessage = string.Empty;
@@ -615,9 +628,19 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                         else
                         {
                             Tootip_Visibility = Visibility.Visible;
+                            TooTip_Text = "不能发送空白消息";
                             timer.Start();
                         }
                     }));
+            }
+        }
+
+        private string _tootip_Text;
+        public string TooTip_Text {
+            get { return _tootip_Text; }
+            set {
+                _tootip_Text = value;
+                RaisePropertyChanged("TooTip_Text");
             }
         }
 
@@ -686,6 +709,11 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
             get {
                 return _emojiCommand ?? (_emojiCommand = new RelayCommand<EmojiTabControlUC>(p => _emoji_Popup = true));
             }
+        }
+
+        private string GetSubLastMsg(string message, int length)
+        {
+            return message.Length <= length ? message : message.Substring(0, length) + "...";
         }
     }
 }

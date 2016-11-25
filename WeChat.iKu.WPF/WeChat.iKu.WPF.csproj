@@ -83,6 +83,7 @@
     <Compile Include="Controls\NotificationAreaIcon.cs" />
     <Compile Include="Controls\ScrollingListBox.cs" />
     <Compile Include="Conver\BoolConvertVisibility.cs" />
+    <Compile Include="Conver\CountConvertColor.cs" />
     <Compile Include="Conver\CountConvertVisibility.cs" />
     <Compile Include="Conver\EmptyConvertVisibility.cs" />
     <Compile Include="Conver\ModelConvertVisibility.cs" />
@@ -189,6 +190,10 @@
     <ProjectReference Include="..\WeChat.iKu.Tools\WeChat.iKu.Tools.csproj">
       <Project>{b86bc948-91df-452a-9fa3-4f8aa9219958}</Project>
       <Name>WeChat.iKu.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZN.Dotnet.Tools\ZN.Dotnet.Tools.csproj">
+      <Project>{5a84742f-0ab3-4eaa-b92b-f7fd019fb62b}</Project>
+      <Name>ZN.Dotnet.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

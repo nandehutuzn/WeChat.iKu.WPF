@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using GalaSoft.MvvmLight.Messaging;
 using WeChat.iKu.WPF.Modules.Main.View;
+using ZN.Dotnet.Tools;
 
 namespace WeChat.iKu.WPF.Modules.Login.View
 {
@@ -24,6 +25,7 @@ namespace WeChat.iKu.WPF.Modules.Login.View
         public LoginUC()
         {
             InitializeComponent();
+            Logger.Test();
             grid_content.Children.Add(new QRCodeUC());
 
             //收到显示登录信息广播通知

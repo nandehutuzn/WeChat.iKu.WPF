@@ -1,0 +1,4 @@
+E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\bin\Debug\ZN.Dotnet.Tools.dll
+E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\bin\Debug\ZN.Dotnet.Tools.pdb
+E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.dll
+E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.pdb
