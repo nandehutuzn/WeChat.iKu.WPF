@@ -23,7 +23,7 @@ namespace WeChat.iKu.WPF.Modules.Main.Model
         public event Action<WeChatMsg> MsgRecved;
 
         private string _userName;
-        private string _nickName;
+        private string _nickName="";
         private string _headImgUrl;
         private string _remarkName;
         private string _sex;

@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:WeChat.iKu.WPF.Modules.Login.View"
         mc:Ignorable="d"
         Title="LoginUC" Height="400" Width="600" Background="#00FFFFFF" WindowStyle="None" AllowsTransparency="True" WindowStartupLocation="CenterScreen" Icon="/Image/Wechat.ico">
-    <Grid Background="WhiteSmoke" HorizontalAlignment="Left" Height="400" Width="280">
+    <Grid  HorizontalAlignment="Left" Height="400" Width="280">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="WhiteSmoke" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Grid Grid.Row="0" Background="WhiteSmoke" MouseLeftButtonDown="Grid_MouseLeftButtonDown"  Opacity="0.8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

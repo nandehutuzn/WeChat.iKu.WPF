@@ -92,12 +92,12 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="35"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0">
+                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0" Background="Black">
                     <Button x:Name="RB_Emoji" Grid.Row="0" Command="{Binding EmojiCommand }" CommandParameter="{Binding ElementName=EmojiTabControlUC}" Style="{StaticResource EmojiStyle}" Visibility="Collapsed"/>
                 </StackPanel>
-                <TextBox Grid.Row="1" Background="#FFF9F9F9" Focusable="True" Margin="10,0" BorderThickness="0" Text="{Binding SendMessage}" TextWrapping="Wrap"/>
+                <TextBox x:Name="tbMessage" Grid.Row="1" Background="#FFF9F9F9" Focusable="True" Margin="10,0" BorderThickness="0" Text="{Binding SendMessage, Mode=TwoWay}" KeyDown="TextBox_KeyDown" TextWrapping="Wrap"/>
                 <TextBox Grid.Row="1" Visibility="{Binding Tootip_Visibility}" Text="不能发送空白信息" Background="White" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15,0" Style="{StaticResource ToolTipTextBoxStyle}" FontSize="13" Height="35" Width="110"/>
-                <Button Grid.Row="2" Command="{Binding SendCommand}" Content="发送(S)" Width="68" Height="26" FontSize="13" BorderBrush="Gray" Background="WhiteSmoke" Foreground="Gray" HorizontalAlignment="Right" Margin="0,0,15,0" Style="{StaticResource SendButtonStyle}"/>
+                <Button x:Name="btnSend" Grid.Row="2" Command="{Binding SendCommand}" Content="发送(S)" Width="68" Height="26" FontSize="13" BorderBrush="Gray" Background="WhiteSmoke" Foreground="Gray" HorizontalAlignment="Right" Margin="0,0,15,0" Style="{StaticResource SendButtonStyle}"/>
             </Grid>
             <Grid Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding ElementName=rb_friend,Path=IsChecked,Converter={StaticResource boolToVisibility}}" Margin="0,50,0,0">
                 <Grid.RowDefinitions>

@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using WeChat.iKu.Tools.Heplers;
 using System.Windows.Threading;
 using WeChat.iKu.Emoji;
+using WeChat.iKu.WPF.Modules.Main.View;
 
 namespace WeChat.iKu.WPF.Modules.Main.ViewModel
 {
@@ -22,6 +23,11 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
     {
         private WeChatService wcs = new WeChatService();
         System.Timers.Timer timer = new System.Timers.Timer();
+
+        /// <summary>
+        /// 跳转回UI线程事件
+        /// </summary>
+        public event Action<Action> BackUIThreadAction;
 
         /// <summary>
         /// 开启聊天事件
@@ -32,6 +38,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
         {
             timer.Interval = 2000;
             timer.Elapsed += timer_Elapsed;
+            //Task.Run(() => Init());
             Init();
         }
 
@@ -277,12 +284,14 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                         user.Icon = GetIcon(wcs, user.UserName);
                         user.SnsFlag = contact["SnsFlag"].ToString();
                         user.KeyWord = contact["KeyWord"].ToString();
-
+                        //跳转回UI线程操作绑定源
+                        //BackUIThreadAction(() => _contact_latest.Add(user));
                         _contact_latest.Add(user);
+                        
                     }
                 }
                 //通讯录
-                JObject contact_result = null;//wcs.GetContact();
+                JObject contact_result = wcs.GetContact();
                 if (contact_result != null)
                 {//完整好友名单
                     foreach (JObject contact in contact_result["MemberList"])
@@ -317,7 +326,9 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                         wcu = o as WeChatUser;
                         start_char = wcu.StartChar;
                         if (!_contact_all.Contains(start_char.ToUpper()))
+                            //BackUIThreadAction(() => _contact_all.Add(start_char.ToUpper()));
                             _contact_all.Add(start_char.ToUpper());
+                        //BackUIThreadAction(() => _contact_all.Add(o));
                         _contact_all.Add(o);
                     }
                 }
@@ -327,6 +338,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                 string message = ex.Message;
             }
         }
+
 
         /// <summary>
         /// 获取头像
@@ -380,106 +392,152 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                 JObject sync_result;
                                 while (true)
                                 {
-                                    //同步检查
-                                    sync_flag = wcs.WeChatSyncCheck();
-                                    if (sync_flag != null) //这里应该判断sync_flag中Selector的值
+                                    try
                                     {
-                                        sync_result = wcs.WeChatSync();
-                                        if (sync_result != null)
+                                        //同步检查
+                                        sync_flag = wcs.WeChatSyncCheck();
+                                        if (sync_flag != null) //这里应该判断sync_flag中Selector的值
                                         {
-                                            if (sync_result["AddMsgCount"] != null && sync_result["AddMsgCount"].ToString() != "0")
+                                            sync_result = wcs.WeChatSync();
+                                            if (sync_result != null)
                                             {
-                                                foreach (JObject m in sync_result["AddMsgList"])
+                                                if (sync_result["AddMsgCount"] != null && sync_result["AddMsgCount"].ToString() != "0")
                                                 {
-                                                    string from = m["FromUserName"].ToString();
-                                                    string to = m["ToUserName"].ToString();
-                                                    string content = m["Content"].ToString();
-                                                    string type = m["MsgType"].ToString();
-
-                                                    WeChatMsg msg = new WeChatMsg();
-                                                    msg.From = from;
-                                                    msg.Msg = type == "1" ? content : "请在其他设备上查看消息";//只接受文本消息
-                                                    msg.Readed = false;
-                                                    msg.Time = DateTime.Now;
-                                                    msg.To = to;
-                                                    msg.Type = int.Parse(type);
-                                                    if (msg.Type == 51) //屏蔽系统数据
-                                                        continue;
-
-                                                    Application.Current.Dispatcher.BeginInvoke((Action)delegate()
+                                                    foreach (JObject m in sync_result["AddMsgList"])
                                                     {
-                                                        WeChatUser user;
-                                                        bool exist_latest_contact = false;//该好友是否在最近联系人列表里面
-                                                        foreach (object u in Contact_latest)
+                                                        string from = m["FromUserName"].ToString();
+                                                        string to = m["ToUserName"].ToString();
+                                                        string content = m["Content"].ToString();
+                                                        string type = m["MsgType"].ToString();
+
+                                                        WeChatMsg msg = new WeChatMsg();
+                                                        msg.From = from;
+                                                        msg.Msg = type == "1" ? content : "请在其他设备上查看消息";//只接受文本消息
+                                                        msg.Readed = false;
+                                                        msg.Time = DateTime.Now;
+                                                        msg.To = to;
+                                                        msg.Type = int.Parse(type);
+                                                        if (msg.Type == 51) //屏蔽系统数据
+                                                            continue;
+
+                                                        Application.Current.Dispatcher.BeginInvoke((Action)delegate()
                                                         {
-                                                            user = u as WeChatUser;
-                                                            if (user != null)
+                                                            WeChatUser user;
+                                                            bool exist_latest_contact = false;//该好友是否在最近联系人列表里面
+                                                            foreach (object u in Contact_latest)
                                                             {
-                                                                if (user.UserName == msg.From && msg.To == _me.UserName)
-                                                                { //接收别人消息
-                                                                    _contact_latest.Remove(user);
-                                                                    user.UnReadCount = user.GetUnreadMsg() == null ? 0 : user.GetUnreadMsg().Count;
-                                                                    if (_friendUser == null || user.UserName != _friendUser.UserName)
-                                                                        user.UnReadCount++;
-                                                                    List<WeChatMsg> unReadList = user.GetUnreadMsg();
-                                                                    WeChatMsg latestMsg = user.GetLatestMsg();
-                                                                    if (unReadList != null)
-                                                                    {
-                                                                        user.LastTime = unReadList[unReadList.Count - 1].Time.ToShortTimeString();
-                                                                        user.LastMsg = unReadList[unReadList.Count - 1].Msg.ToString();
-                                                                        user.LastMsg = user.LastMsg.Length <= 10 ? user.LastMsg : user.LastMsg.Substring(0, 10) + "...";
-                                                                    }
-                                                                    else//最新消息
-                                                                    {
-                                                                        if (latestMsg != null)
+                                                                user = u as WeChatUser;
+                                                                if (user != null)
+                                                                {
+                                                                    if (user.UserName == msg.From && msg.To == _me.UserName)
+                                                                    { //接收别人消息
+                                                                        _contact_latest.Remove(user);
+                                                                        if (_friendUser == null || (_friendUser != null && _friendUser.UserName != user.UserName))
+                                                                        { //当前聊天对象不是信息发送方
+                                                                            user.UnReadCount++;
+                                                                            user.ReceivedMsg(msg);               
+                                                                        }
+                                                                        else
+                                                                        { //信息发送方为当前聊天对象
+                                                                            user.UnReadCount = 0;
+                                                                            user.ReceivedMsg(msg);
+                                                                        }
+                                                                        string lastMsg = "[" + user.ShowName + "]" + user.RecvedMsg.Values.Last().Msg;
+                                                                        user.LastMsg = lastMsg.Length <= 15 ? lastMsg : lastMsg.Substring(0, 15) + "...";
+                                                                        user.LastTime = user.RecvedMsg.Values.Last().Time.ToShortTimeString();   
+                                                                        _contact_latest.Insert(0, user);
+                                                                        exist_latest_contact = true;
+                                                                        break;
+                                                                        #region
+                                                                        /*
+                                                                        user.UnReadCount = user.GetUnreadMsg() == null ? 0 : user.GetUnreadMsg().Count;
+                                                                        if (_friendUser != null)
                                                                         {
-                                                                            user.LastTime = latestMsg.Time.ToShortTimeString();
-                                                                            user.LastMsg = latestMsg.Msg.ToString();
+                                                                            if (user.UserName != _friendUser.UserName)
+                                                                                user.UnReadCount++;
+                                                                            else
+                                                                                user.UnReadCount = 0;
+                                                                        }
+                                                                        else
+                                                                            user.UnReadCount++;
+                
+                                                                        List<WeChatMsg> unReadList = user.GetUnreadMsg();
+                                                                        WeChatMsg latestMsg = user.GetLatestMsg();
+                                                                        _contact_latest.Insert(0, user);
+                                                                        exist_latest_contact = true;
+                                                                        user.ReceivedMsg(msg);
+                                                                        if (unReadList != null)
+                                                                        {
+                                                                            user.LastTime = unReadList[unReadList.Count - 1].Time.ToShortTimeString();
+                                                                            user.LastMsg = unReadList[unReadList.Count - 1].Msg.ToString();
                                                                             user.LastMsg = user.LastMsg.Length <= 10 ? user.LastMsg : user.LastMsg.Substring(0, 10) + "...";
                                                                         }
-                                                                    }
+                                                                        else//最新消息
+                                                                        {
+                                                                            if (latestMsg != null)
+                                                                            {
+                                                                                user.LastTime = latestMsg.Time.ToShortTimeString();
+                                                                                user.LastMsg = latestMsg.Msg.ToString();
+                                                                                user.LastMsg = user.LastMsg.Length <= 10 ? user.LastMsg : user.LastMsg.Substring(0, 10) + "...";
+                                                                            }
+                                                                        }
 
-                                                                    _contact_latest.Insert(0, user);
-                                                                    exist_latest_contact = true;
-                                                                    user.ReceivedMsg(msg);
-                                                                    break;
-                                                                }
-                                                                else if (user.UserName == msg.To && msg.From == _me.UserName)
-                                                                { //同步自己在其他设备上发送的消息
-                                                                    _contact_latest.Remove(user);
-                                                                    _contact_latest.Insert(0, user);
-                                                                    exist_latest_contact = true;
-                                                                    user.SendMsg(msg, true);
-                                                                    break;
+                                                                        
+                                                                        break;
+                                                                         */
+                                                                        #endregion
+                                                                    }
+                                                                    else if (user.UserName == msg.To && msg.From == _me.UserName)
+                                                                    { //同步自己在其他设备上发送的消息
+                                                                        _contact_latest.Remove(user);
+                                                                        _contact_latest.Insert(0, user);
+
+                                                                        exist_latest_contact = true;
+                                                                        user.SendMsg(msg, true);
+                                                                        user.LastMsg = user.SentMsg.Values.Last().Msg;
+                                                                        user.LastTime = user.SentMsg.Values.Last().Time.ToShortTimeString();
+                                                                        break;
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        if (!exist_latest_contact)
-                                                        {
-                                                            foreach (object o in Contact_all)
+                                                            if (!exist_latest_contact)
                                                             {
-                                                                WeChatUser friend = o as WeChatUser;
-                                                                if (friend != null && friend.UserName == msg.From && msg.To == _me.UserName)
+                                                                foreach (object o in Contact_all)
                                                                 {
-                                                                    _contact_latest.Insert(0, friend);
-                                                                    friend.ReceivedMsg(msg);
-                                                                    break;
-                                                                }
-                                                                if (friend != null && friend.UserName == msg.To && msg.From == _me.UserName)
-                                                                {
-                                                                    _contact_latest.Insert(0, friend);
-                                                                    friend.SendMsg(msg, true);
-                                                                    break;
+                                                                    WeChatUser friend = o as WeChatUser;
+                                                                    if (friend != null && friend.UserName == msg.From && msg.To == _me.UserName)
+                                                                    {
+                                                                        _contact_latest.Insert(0, friend);
+
+                                                                        friend.ReceivedMsg(msg);
+                                                                        friend.LastMsg = friend.RecvedMsg.Values.Last().Msg;
+                                                                        friend.LastTime = friend.RecvedMsg.Values.Last().Time.ToShortTimeString();
+                                                                        break;
+                                                                    }
+                                                                    if (friend != null && friend.UserName == msg.To && msg.From == _me.UserName)
+                                                                    {
+                                                                        _contact_latest.Insert(0, friend);
+
+                                                                        friend.SendMsg(msg, true);
+                                                                        friend.LastMsg = friend.SentMsg.Values.Last().Msg;
+                                                                        friend.LastTime = friend.SentMsg.Values.Last().Time.ToShortTimeString();
+                                                                        break;
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        
-                                                    });
+
+                                                        });
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+                                    catch (Exception ex)
+                                    {
+                                        string excMessage = ex.Message;
+                                    }
                                 }
+                                
                             });
                     }));
             }
@@ -549,6 +607,8 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                             msg.Type = 1;
                             msg.Msg = SendMessage;
                             msg.Time = DateTime.Now;
+                            _friendUser.LastMsg = SendMessage.Length <= 15 ? SendMessage : SendMessage.Substring(0, 15) + "...";
+                            _friendUser.LastTime = msg.Time.ToShortTimeString();
                             _friendUser.SendMsg(msg, false);
                             SendMessage = string.Empty;
                         }

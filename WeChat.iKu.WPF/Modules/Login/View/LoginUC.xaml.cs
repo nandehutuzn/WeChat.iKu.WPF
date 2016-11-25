@@ -53,7 +53,6 @@ namespace WeChat.iKu.WPF.Modules.Login.View
                 {//收到隐藏广播
                     this.Dispatcher.Invoke((Action)(() =>
                         {
-                            //Task.Run(() => new MainUC().Show());
                             new MainUC().Show();
                             this.Hide();
                         }));

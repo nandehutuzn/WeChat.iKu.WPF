@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using WeChat.iKu.Emoji;
+using WeChat.iKu.WPF.Modules.ComMange;
 
 namespace WeChat.iKu.WPF.Modules.Main.View
 {
@@ -23,10 +24,20 @@ namespace WeChat.iKu.WPF.Modules.Main.View
     {
         private WindowState _lastWindowState = WindowState.Normal;
 
+        private WeChatViewModelLocator _locator = WeChatViewModelLocator.Instance;
+
         public MainUC()
         {
             InitializeComponent();
+            //_locator.MainViewModel.BackUIThreadAction += MainViewModel_BackUIThreadAction;
+            
         }
+
+        void MainViewModel_BackUIThreadAction(Action obj)
+        {
+            this.Dispatcher.BeginInvoke((Action)delegate() { obj(); });
+        }
+
 
         /// <summary>
         /// 双击最大化或还原
@@ -139,9 +150,12 @@ namespace WeChat.iKu.WPF.Modules.Main.View
             Show();
         }
 
-        private void RB_Emoji_Click(object sender, RoutedEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            MessageBox.Show("测试");
+            if (e.Key == Key.Enter)
+            {
+                this.btnSend.Focus();
+            }
         }
     }
 }
