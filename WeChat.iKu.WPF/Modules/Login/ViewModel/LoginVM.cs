@@ -25,7 +25,7 @@ namespace WeChat.iKu.WPF.Modules.Login.ViewModel
         public LoginVM()
         {
             QRCodeImageSource = InitImageSource();
-            QRCodeLabelText = "欢迎使用 WeChat.iKu by 男的糊涂";
+            QRCodeLabelText = "欢迎使用 WeChat by 男的糊涂";
         }
 
         /// <summary>

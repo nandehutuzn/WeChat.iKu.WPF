@@ -2,3 +2,8 @@ E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\bin\Debug\ZN.Dotnet.Tools.dll
 E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\bin\Debug\ZN.Dotnet.Tools.pdb
 E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.dll
 E:\GitHub\Test\WeChat.iKu.WPF\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.pdb
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\ZN.Dotnet.Tools\bin\Debug\ZN.Dotnet.Tools.dll
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\ZN.Dotnet.Tools\bin\Debug\ZN.Dotnet.Tools.pdb
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.dll
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.pdb
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\ZN.Dotnet.Tools\obj\Debug\ZN.Dotnet.Tools.csprojResolveAssemblyReference.cache

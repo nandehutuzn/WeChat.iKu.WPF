@@ -47,3 +47,13 @@ E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.Emoji\obj\Debug\EmojiTabControlUC.baml
 E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.g.resources
 E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.dll
 E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.pdb
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\bin\Debug\Emoji.xml
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\bin\Debug\WeChat.iKu.Emoji.dll
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\bin\Debug\WeChat.iKu.Emoji.pdb
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\EmojiTabControlUC.g.cs
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji_MarkupCompile.cache
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji_MarkupCompile.lref
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\EmojiTabControlUC.baml
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.g.resources
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.dll
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.pdb

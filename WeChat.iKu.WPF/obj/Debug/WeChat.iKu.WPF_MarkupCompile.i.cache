@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\obj\Debug\
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.WPF\obj\Debug\
 WeChat.iKu.WPF
 none
 false
 DEBUG;TRACE
-E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\App.xaml
+E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.WPF\App.xaml
 61243489902
 
-33-194999990
-27-1275442664
+33836819533
+27-1963703308
 MainWindow.xaml;Modules\Login\View\LoginInfoUC.xaml;Modules\Login\View\LoginUC.xaml;Modules\Login\View\QRCodeUC.xaml;Modules\Main\View\MainUC.xaml;WeChatStyleDictionary.xaml;
 
 True

@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DLL", "DLL", "{5C6A4E90-168
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZN.Dotnet.Tools", "ZN.Dotnet.Tools\ZN.Dotnet.Tools.csproj", "{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "..\..\ConsoleApplication1\ConsoleApplication1.csproj", "{E66E9749-E7CB-4EC6-A52D-7E0B0EB93D04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A84742F-0AB3-4EAA-B92B-F7FD019FB62B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E66E9749-E7CB-4EC6-A52D-7E0B0EB93D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66E9749-E7CB-4EC6-A52D-7E0B0EB93D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66E9749-E7CB-4EC6-A52D-7E0B0EB93D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66E9749-E7CB-4EC6-A52D-7E0B0EB93D04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

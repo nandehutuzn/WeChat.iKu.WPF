@@ -5,19 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Threading;
 
 namespace ZN.Dotnet.Tools
 {
-    public  static class Logger
+    public class Logger
     {
         /// <summary>
         /// 当日日志路径
         /// </summary>
         private static string _logFile = string.Empty;
-
-        static Logger()
-        {
-            CreateLogFolder();
+        private static int _resourceInUse;  //0=false, 1=true
+        private static Logger _instance;
+        private static object _syncObj = new object();
+        private Logger() { }
+        public static Logger Instance {
+            get {
+                if (_instance == null)
+                {
+                    lock (_syncObj)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new Logger();
+                            CreateLogFolder();
+                        }
+                    }
+                }
+                return _instance;
+            }
         }
 
         /// <summary>
@@ -42,16 +58,42 @@ namespace ZN.Dotnet.Tools
 
             string day = DateTime.Now.ToString("yyyy-MM-dd");
             _logFile = Path.Combine(monthDir, string.Format("{0}.txt", day));
-            if (!File.Exists(_logFile))
-                File.CreateText(_logFile);
         }
 
-        public static void Test() 
+        private void EnterWrite(string message)
         {
-            using (StreamWriter sW = new StreamWriter(_logFile, true))
+            if (!string.IsNullOrEmpty(message))
             {
-                sW.WriteLine("测试");
+                string logMsg = string.Format("{0}:{1}:{2}:{3}  {4}", DateTime.Now.Hour.ToString(),
+                    DateTime.Now.Minute.ToString(), DateTime.Now.Second.ToString(), DateTime.Now.Millisecond.ToString(), message);
+                while (true)
+                {
+                    if (Interlocked.Exchange(ref _resourceInUse, 1) == 0)
+                    {
+                        using (StreamWriter sWrite = new StreamWriter(_logFile, true))
+                        {
+                            sWrite.WriteLine(logMsg);
+                        }
+                        return;
+                    }
+                }
             }
+        }
+
+        private void Leave()
+        {
+            Volatile.Write(ref _resourceInUse, 0);//将资源标记为未使用
+        }
+
+        public  void Exception(string exceptionMsg)
+        {
+            EnterWrite(exceptionMsg);
+            Leave();
+        }
+
+        public void Exception(Exception ex)
+        {
+            Exception(string.Format("Exception Message: {0} \r\n Position: {1}", ex.Message, ex.StackTrace));
         }
     }
 }

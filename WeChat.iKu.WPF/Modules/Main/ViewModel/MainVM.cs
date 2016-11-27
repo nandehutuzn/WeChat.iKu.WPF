@@ -28,7 +28,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
         /// <summary>
         /// 跳转回UI线程事件
         /// </summary>
-        public event Action<Action> BackUIThreadAction;
+        //public event Action<Action> BackUIThreadAction;
 
         /// <summary>
         /// 开启聊天事件
@@ -39,9 +39,9 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
         {
             timer.Interval = 2000;
             timer.Elapsed += timer_Elapsed;
-            //Task.Run(() => Init());
-            Init();
-            Logger.Test();
+            Task.Run(() => Init());
+            //Init();
+            //Logger.Test();
         }
 
         private WeChatUser _me;
@@ -246,98 +246,115 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
             timer.Stop();
         }
 
+        private async Task BackUIThreadAction(Action action)
+        {
+            //Application.Current.Dispatcher.BeginInvoke((Action)delegate() { action(); });
+            await Task.Run(() =>
+                {
+                    Application.Current.Dispatcher.BeginInvoke((Action)delegate() { action(); });
+                });
+        }
+
         /// <summary>
         /// 初始化
         /// </summary>
         private void Init()
         {
-            try
+            //while (true)
             {
-                JObject init_result = wcs.WeChatInit();
-                List<object> contact_all = new List<object>();
-                if (init_result != null)
+                try
                 {
-                    _me = new WeChatUser();
-                    _me.UserName = init_result["User"]["UserName"].ToString();
-                    _me.City = "";
-                    _me.HeadImgUrl = init_result["User"]["HeadImgUrl"].ToString();
-                    _me.NickName = init_result["User"]["NickName"].ToString();
-                    _me.Province = "";
-                    _me.PyQuanPin = init_result["User"]["PYQuanPin"].ToString();
-                    _me.RemarkName = init_result["User"]["RemarkName"].ToString();
-                    _me.RemarkPYQuanPin = init_result["User"]["RemarkPYQuanPin"].ToString();
-                    _me.Sex = init_result["User"]["Sex"].ToString();
-                    _me.Signature = init_result["User"]["Signature"].ToString();
-                    _me.Icon = GetIcon(wcs, _me.UserName);
-                    //部分好友名单
-                    foreach (JObject contact in init_result["ContactList"])
+                    JObject init_result = wcs.WeChatInit();
+                    List<object> contact_all = new List<object>();
+                    if (init_result != null)
                     {
-                        WeChatUser user = new WeChatUser();
-                        user.UserName = contact["UserName"].ToString();
-                        user.City = contact["City"].ToString();
-                        user.HeadImgUrl = contact["HeadImgUrl"].ToString();
-                        user.NickName = contact["NickName"].ToString();
-                        user.Province = contact["Province"].ToString();
-                        user.PyQuanPin = contact["PYQuanPin"].ToString();
-                        user.RemarkName = contact["RemarkName"].ToString();
-                        user.RemarkPYQuanPin = contact["RemarkPYQuanPin"].ToString();
-                        user.Sex = contact["Sex"].ToString();
-                        user.Signature = contact["Signature"].ToString();
-                        user.Icon = GetIcon(wcs, user.UserName);
-                        user.SnsFlag = contact["SnsFlag"].ToString();
-                        user.KeyWord = contact["KeyWord"].ToString();
-                        //跳转回UI线程操作绑定源
-                        //BackUIThreadAction(() => _contact_latest.Add(user));
-                        _contact_latest.Add(user);
-                        
+                        _me = new WeChatUser();
+                        _me.UserName = init_result["User"]["UserName"].ToString();
+                        _me.City = "";
+                        _me.HeadImgUrl = init_result["User"]["HeadImgUrl"].ToString();
+                        _me.NickName = init_result["User"]["NickName"].ToString();
+                        _me.Province = "";
+                        _me.PyQuanPin = init_result["User"]["PYQuanPin"].ToString();
+                        _me.RemarkName = init_result["User"]["RemarkName"].ToString();
+                        _me.RemarkPYQuanPin = init_result["User"]["RemarkPYQuanPin"].ToString();
+                        _me.Sex = init_result["User"]["Sex"].ToString();
+                        _me.Signature = init_result["User"]["Signature"].ToString();
+                        _me.Icon = GetIcon(wcs, _me.UserName);
+                        //部分好友名单
+                        foreach (JObject contact in init_result["ContactList"])
+                        {
+                            WeChatUser user = new WeChatUser();
+                            user.UserName = contact["UserName"].ToString();
+                            user.City = contact["City"].ToString();
+                            user.HeadImgUrl = contact["HeadImgUrl"].ToString();
+                            user.NickName = contact["NickName"].ToString();
+                            user.Province = contact["Province"].ToString();
+                            user.PyQuanPin = contact["PYQuanPin"].ToString();
+                            user.RemarkName = contact["RemarkName"].ToString();
+                            user.RemarkPYQuanPin = contact["RemarkPYQuanPin"].ToString();
+                            user.Sex = contact["Sex"].ToString();
+                            user.Signature = contact["Signature"].ToString();
+                            user.Icon = GetIcon(wcs, user.UserName);
+                            user.SnsFlag = contact["SnsFlag"].ToString();
+                            user.KeyWord = contact["KeyWord"].ToString();
+                            //跳转回UI线程操作绑定源
+                            Application.Current.Dispatcher.BeginInvoke((Action)delegate()
+                            {
+                                _contact_latest.Add(user);
+                            });
+                            //BackUIThreadAction(() => _contact_latest.Add(user));
+                            //_contact_latest.Add(user);
+
+                        }
                     }
+                    //通讯录
+                    JObject contact_result = wcs.GetContact();
+                    if (contact_result != null)
+                    {//完整好友名单
+                        foreach (JObject contact in contact_result["MemberList"])
+                        {
+                            WeChatUser user = new WeChatUser();
+                            user.UserName = contact["UserName"].ToString();
+                            user.City = contact["City"].ToString();
+                            user.HeadImgUrl = contact["HeadImgUrl"].ToString();
+                            user.NickName = contact["NickName"].ToString();
+                            user.Province = contact["Province"].ToString();
+                            user.PyQuanPin = contact["PYQuanPin"].ToString();
+                            user.RemarkName = contact["RemarkName"].ToString();
+                            user.RemarkPYQuanPin = contact["RemarkPYQuanPin"].ToString();
+                            user.Sex = contact["Sex"].ToString();
+                            user.Signature = contact["Signature"].ToString();
+                            user.Icon = GetIcon(wcs, user.UserName);
+                            user.SnsFlag = contact["SnsFlag"].ToString();
+                            user.KeyWord = contact["KeyWord"].ToString();
+                            user.StartChar = GetStartChar(user);
+                            
+                            contact_all.Add(user);
+                        }
+
+                        IOrderedEnumerable<object> list_all = contact_all.OrderBy(p =>
+                            (p as WeChatUser).StartChar).ThenBy(p =>
+                                (p as WeChatUser).NickName);
+
+                        WeChatUser wcu;
+                        string start_char;
+                        foreach (object o in list_all)
+                        {
+                            wcu = o as WeChatUser;
+                            start_char = wcu.StartChar;
+                            if (!_contact_all.Contains(start_char.ToUpper()))
+                                BackUIThreadAction(() => _contact_all.Add(start_char.ToUpper()));
+                                //_contact_all.Add(start_char.ToUpper());
+                            BackUIThreadAction(() => _contact_all.Add(o));
+                            //_contact_all.Add(o);
+                        }
+                    }
+                    return;
                 }
-                //通讯录
-                JObject contact_result = wcs.GetContact();
-                if (contact_result != null)
-                {//完整好友名单
-                    foreach (JObject contact in contact_result["MemberList"])
-                    {
-                        WeChatUser user = new WeChatUser();
-                        user.UserName = contact["UserName"].ToString();
-                        user.City = contact["City"].ToString();
-                        user.HeadImgUrl = contact["HeadImgUrl"].ToString();
-                        user.NickName = contact["NickName"].ToString();
-                        user.Province = contact["Province"].ToString();
-                        user.PyQuanPin = contact["PYQuanPin"].ToString();
-                        user.RemarkName = contact["RemarkName"].ToString();
-                        user.RemarkPYQuanPin = contact["RemarkPYQuanPin"].ToString();
-                        user.Sex = contact["Sex"].ToString();
-                        user.Signature = contact["Signature"].ToString();
-                        user.Icon = GetIcon(wcs, user.UserName);
-                        user.SnsFlag = contact["SnsFlag"].ToString();
-                        user.KeyWord = contact["KeyWord"].ToString();
-                        user.StartChar = GetStartChar(user);
-
-                        contact_all.Add(user);
-                    }
-
-                    IOrderedEnumerable<object> list_all = contact_all.OrderBy(p =>
-                        (p as WeChatUser).StartChar).ThenBy(p =>
-                            (p as WeChatUser).NickName);
-
-                    WeChatUser wcu;
-                    string start_char;
-                    foreach (object o in list_all)
-                    {
-                        wcu = o as WeChatUser;
-                        start_char = wcu.StartChar;
-                        if (!_contact_all.Contains(start_char.ToUpper()))
-                            //BackUIThreadAction(() => _contact_all.Add(start_char.ToUpper()));
-                            _contact_all.Add(start_char.ToUpper());
-                        //BackUIThreadAction(() => _contact_all.Add(o));
-                        _contact_all.Add(o);
-                    }
+                catch (Exception ex)
+                {
+                    Logger.Instance.Exception(ex);
                 }
-            }
-            catch (Exception ex)
-            {
-                string message = ex.Message;
             }
         }
 
@@ -537,7 +554,7 @@ namespace WeChat.iKu.WPF.Modules.Main.ViewModel
                                     }
                                     catch (Exception ex)
                                     {
-                                        string excMessage = ex.Message;
+                                        Logger.Instance.Exception(ex);
                                     }
                                 }
                                 

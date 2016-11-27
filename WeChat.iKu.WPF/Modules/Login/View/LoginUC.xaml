@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="WhiteSmoke" MouseLeftButtonDown="Grid_MouseLeftButtonDown"  Opacity="0.8">
+        <Grid Grid.Row="0" Background="WhiteSmoke" MouseLeftButtonDown="Grid_MouseLeftButtonDown" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
