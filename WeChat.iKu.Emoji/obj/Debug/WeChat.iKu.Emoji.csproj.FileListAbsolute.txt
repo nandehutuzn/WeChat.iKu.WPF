@@ -57,3 +57,4 @@ E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeCha
 E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.g.resources
 E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.dll
 E:\GitHub\20161117_WeChat\Test\WeChat.iKu.WPF-master\WeChat.iKu.WPF-master\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.pdb
+E:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.Emoji\obj\Debug\WeChat.iKu.Emoji.csprojResolveAssemblyReference.cache

@@ -1,0 +1,10 @@
+9:8:49:28  Exception Message: 未将对象引用设置到对象的实例。 
+ Position:    在 WeChat.iKu.HTTP.BaseService.GetAllCookies(CookieContainer cc) 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\BaseService.cs:行号 95
+   在 WeChat.iKu.HTTP.BaseService.GetCookie(String name) 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\BaseService.cs:行号 124
+   在 WeChat.iKu.HTTP.WeChatService.WeChatInit() 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\WeChatService.cs:行号 29
+   在 WeChat.iKu.WPF.Modules.Main.ViewModel.MainVM.Init() 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\Modules\Main\ViewModel\MainVM.cs:行号 267
+10:44:36:149  Exception Message: 未将对象引用设置到对象的实例。 
+ Position:    在 WeChat.iKu.HTTP.BaseService.GetAllCookies(CookieContainer cc) 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\BaseService.cs:行号 95
+   在 WeChat.iKu.HTTP.BaseService.GetCookie(String name) 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\BaseService.cs:行号 124
+   在 WeChat.iKu.HTTP.WeChatService.WeChatInit() 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.HTTP\WeChatService.cs:行号 29
+   在 WeChat.iKu.WPF.Modules.Main.ViewModel.MainVM.Init() 位置 e:\GitHub\Test\WeChat.iKu.WPF\WeChat.iKu.WPF\Modules\Main\ViewModel\MainVM.cs:行号 267
